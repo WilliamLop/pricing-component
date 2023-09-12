@@ -1,0 +1,76 @@
+---
+import { cards } from '../constant/info'
+---
+
+<secition class="grid gap-10 w-full max-w-[1200px]">
+    <div class="py-10 md:py-0 grid gap-10">
+        <h2 class="text-center text-3xl font-semibold text-GrayishBlue">Our Pricing</h2>
+        <div class="flex justify-between gap-4 w-[250px] mx-auto">
+            <p class="text-GrayishBlue">Annually</p>
+            <div class="w-16 p-1 bg-violet-400 mx-auto rounded-full flex justify-between items-center">
+                <button class="w-full h-full cursor-none rounded-full" id="change-btn"></button>
+                <button class="w-full h-full bg-white rounded-full" id="change-btn"></button>
+            </div>
+            <p class="text-GrayishBlue">Monthly</p>
+        </div>
+    </div>
+    
+    <div class="w-[90%] grid gap-6 md:grid-cols-3 md:gap-0 pb-10 md:pb-0 mx-auto">
+        {cards.map((card, i) => (
+            <div class={`bg-white rounded-lg p-6 text-center grid gap-8 shadow-sm
+            ${i === 1 ? 'drop-shadow-lg bg-gradient-to-r from-LinearGradient1 to-LinearGradient2 text-white' : 'bg-white text-DarkGrayishBlue'} `}>
+                <p class="font-semibold">{card.name}</p>
+                <h1 class="font-bold text-5xl" id="text-price">{card.price['monthly']}</h1>
+    
+                <div class="font-semibold">
+                    <p class="border-t-[1px] border-slate-300 py-3">{card.space}</p>
+                    <p class="border-t-[1px] border-b-[1px] py-3 border-slate-300">{card.users}</p>
+                    <p class="border-b-[1px] border-slate-300 py-3">{card.gb}</p>
+                </div>
+    
+                <a href="/" class={`uppercase bg-gradient-to-r from-LinearGradient1 to-LinearGradient2
+                py-3 text-sm text-white font-semibold tracking-wider rounded-lg hover:bg-none
+                duration-500 ease-in-out border-[1px] hover:text-LinearGradient2 hover:border-slate-300
+                ${i === 1 ? 'bg-white' : ''}`}>
+                    Learn More
+                </a>
+            </div>
+        ))}
+    </div>
+</secition>
+
+
+
+<script>import cards from "../constant/info";
+
+
+    const monthly = document.querySelectorAll('#change-btn');
+    const price = document.querySelectorAll('#text-price');
+    
+
+    monthly.forEach((item, i) => {
+        item.addEventListener('click', () => {
+
+            monthly.forEach((btn) => {
+                btn.classList.add('bg-white');
+                btn.classList.remove('cursor-none');
+            });
+
+            item.classList.remove('bg-white');
+            item.classList.add('cursor-none');
+
+            cards.forEach((card, k) => {
+                if(i === 1){
+                    price[k].innerHTML = card.price['annual'];
+                }else{
+                    price[k].innerHTML = card.price['monthly'];
+                }
+            });
+
+            
+        })
+    });
+
+    
+
+</script>
